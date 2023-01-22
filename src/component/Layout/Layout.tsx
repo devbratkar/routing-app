@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "../../Context";
+import React from "react";
 import "../../styles/Layout.css";
 
 type Props = {
@@ -7,7 +6,6 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({ children }) => {
-  const { state } = useContext(GlobalContext);
   return (
     <div className="layout">
       <div className="layout-navbar"></div>
