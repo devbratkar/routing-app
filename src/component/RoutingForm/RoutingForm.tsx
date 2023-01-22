@@ -69,7 +69,6 @@ const RoutingForm: React.FC<PropType> = () => {
     if (mode === "UPDATE") reset(routing[index]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, index]);
-  console.log(errors);
   return (
     <form className="routing-form" onSubmit={handleSubmit(onSubmit)}>
       <CustomSelect
