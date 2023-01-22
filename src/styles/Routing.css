@@ -1,0 +1,59 @@
+.routing {
+  height: 85%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.routing-input {
+  display: flex;
+}
+
+.routing-lists {}
+
+.routing-form {
+  display: flex;
+  gap: 1rem;
+
+  align-items: center;
+}
+
+.routing-generate-btn {
+  position: absolute;
+  right: 5rem;
+  bottom: 3rem;
+
+  background-color: #209CE2;
+  color: white;
+  font-weight: 700;
+
+  border: none;
+  border-color: #209CE2;
+  border-radius: 1rem;
+
+  padding: 1rem 3rem;
+
+  cursor: pointer;
+}
+
+.routing-table {
+  margin: 2rem auto;
+}
+
+.routing-table td {
+  background-color: #F7FCFF;
+}
+
+.routing-head {
+  background-color: #8AC4E4;
+}
+
+.routing-head th {
+  font-weight: 700 !important;
+}
+
+.routing-head-row {}
+
+.routing-body {}
+
+.routing-body-row {}

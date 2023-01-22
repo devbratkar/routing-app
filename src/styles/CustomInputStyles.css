@@ -1,0 +1,32 @@
+.custom-select-formcontrol {
+  width: 200px;
+}
+
+.custom-select-formcontrol [role="button"] {
+  font-weight: bold;
+}
+
+.custom-input-formcontrol label {
+  font-weight: bold;
+}
+
+.custom-select-input {
+  background-color: #EFEFEF;
+}
+
+.custom-select-input #mui-component-select-protected {
+  border: 1px solid black !important;
+}
+
+.custom-input .MuiInputBase-root {
+  border: 1px solid black !important;
+  background-color: #EFEFEF;
+}
+
+.Mui-error~.custom-input {
+  background-color: red !important;
+}
+
+.custom-input .MuiInputBase-root.Mui-disabled {
+  background-color: #D9D9D9;
+}
