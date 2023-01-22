@@ -1,9 +1,8 @@
-import React, { ChangeEvent, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CustomCheckbox from "../CustomInputs/CustomCheckbox";
 import CustomInput from "../CustomInputs/CustomInput";
 import CustomSelect from "../CustomInputs/CustomSelect";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { GlobalContext } from "../../Context";
 
 type DefaultFormType = {
@@ -16,7 +15,7 @@ type DefaultFormType = {
 };
 
 type PropType = {
-  index: number;
+  index?: number;
 };
 
 const defaultValues: DefaultFormType = {
@@ -32,9 +31,9 @@ const basicRule = {
   required: "This Field is Required.",
 };
 
-const RoutingForm: React.FC<PropType> = ({ index }) => {
+const RoutingForm: React.FC<PropType> = () => {
   const {
-    state: { routing },
+    state: { routing, index, mode },
     dispatch,
   } = useContext(GlobalContext);
   const { control, watch, handleSubmit, setValue, reset } = useForm({
@@ -42,26 +41,28 @@ const RoutingForm: React.FC<PropType> = ({ index }) => {
     defaultValues,
   });
   const onSubmit = async (values: DefaultFormType) => {
-    dispatch({
-      type: "UPDATE_ROUTE",
-      payload: { index, data: { ...values } },
-    });
-    dispatch({
-      type: "ADD_ROUTE",
-      payload: { index: index + 1, data: { ...values } },
-    });
-    // reset();
+    if (mode === "ADD") {
+      dispatch({
+        type: "ADD_ROUTE",
+        payload: { ...values, id: index },
+      });
+    }
+    if (mode === "UPDATE") {
+      dispatch({
+        type: "UPDATE_ROUTE",
+        payload: { ...values, id: index },
+      });
+    }
+    reset(defaultValues);
   };
-  const changeHandler = (e: ChangeEvent<any>) => {
-    dispatch({
-      type: "UPDATE_FIELD",
-      payload: { index, data: [e.target!.name, e.target!.value] },
-    });
-  };
+
   const isDynamicPath = watch("isDynamic");
+
   useEffect(() => {
-    setValue("dynamic", "");
-  }, [isDynamicPath, setValue]);
+    if (mode === "UPDATE") reset(routing[index]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, index]);
+
   return (
     <form className="routing-form" onSubmit={handleSubmit(onSubmit)}>
       <CustomSelect
@@ -78,36 +79,24 @@ const RoutingForm: React.FC<PropType> = ({ index }) => {
             value: "false",
           },
         ]}
-        change={(e) => {
-          const { name, value } = e.target;
-          routing[index] = { ...routing[index], [name]: value };
-        }}
       />
       <CustomInput
         name="path"
         type="text"
         control={control}
         rules={basicRule}
-        placeholder="Routing Path"
+        placeholder="Path name ex. /login"
         label="Path"
         variant="outlined"
-        change={(e) => {
-          const { name, value } = e.target;
-          routing[index] = { ...routing[index], [name]: value };
-        }}
       />
       <CustomInput
         name="component"
         type="text"
         control={control}
         rules={basicRule}
-        placeholder="Component Name"
+        placeholder="Component Name ex. App"
         label="Component"
         variant="outlined"
-        change={(e) => {
-          const { name, value } = e.target;
-          routing[index] = { ...routing[index], [name]: value };
-        }}
       />
       <CustomInput
         name="dynamic"
@@ -115,38 +104,22 @@ const RoutingForm: React.FC<PropType> = ({ index }) => {
         control={control}
         rules={isDynamicPath ? basicRule : { required: false }}
         disabled={!isDynamicPath}
-        placeholder="Dynamic Path"
+        placeholder="Dynamic Path ex. /:id"
         label="Dynamic"
         variant="outlined"
-        change={(e) => {
-          const { name, value } = e.target;
-          routing[index] = { ...routing[index], [name]: value };
-        }}
       />
       <CustomCheckbox
         name="isDynamic"
         control={control}
         label="Dynamic"
         change={(e) => {
-          const { name, checked } = e.target;
-          routing[index] = { ...routing[index], [name]: checked };
+          setValue("dynamic", "");
         }}
       />
-      <CustomCheckbox
-        name="isExact"
-        control={control}
-        label="Exact"
-        change={(e) => {
-          const { name, checked } = e.target;
-          routing[index] = { ...routing[index], [name]: checked };
-        }}
-      />
+      <CustomCheckbox name="isExact" control={control} label="Exact" />
 
-      <button
-        type="submit"
-        style={{ background: "transparent", border: "none" }}
-      >
-        <AddCircleIcon />
+      <button className="routing-form-add" type="submit">
+        Add
       </button>
     </form>
   );

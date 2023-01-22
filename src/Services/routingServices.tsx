@@ -1,9 +1,11 @@
+const protectedRouteText = `export const ProtectedRoute = ({children}) => {\n\tconst navigate = useNavigate()\n\tconst token = localStorage.getItem("token");\n\tif(!!token) return ({children});\n\treturn navigate("/")\n}\n`;
+
 export const createComponent = (name: string) => {
   return `export const ${name} = () => {\n\treturn (<div>${name}</div>);\n}\n`;
 };
 
-export const createProtectedRoute = () => {
-  return `export const ProtectedRoute = ({children}) => {\n\tconst navigate = useNavigate()\n\tconst token = localStorage.getItem("token");\n\tif(!!token) return ({children});\n\treturn navigate("/")\n}\n`;
+export const createProtectedRoute = (route = protectedRouteText) => {
+  return route;
 };
 
 export const createRoutings = (data: any) => {
