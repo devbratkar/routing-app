@@ -53,7 +53,6 @@ const CustomInput: React.FC<CustomInputType & TextFieldProps> = (props) => {
                   }
                 : onChange
             }
-            // label={label ?? ""}
             className={`custom-input ${inputClassName}`}
             {...rest}
           ></TextField>

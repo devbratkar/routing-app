@@ -6,7 +6,12 @@ interface ContextType {
 }
 
 interface ActionType {
-  type: "ADD_ROUTE" | "REMOVE_ROUTE" | "UPDATE_ROUTE";
+  type:
+    | "ADD_ROUTE"
+    | "REMOVE_ROUTE"
+    | "UPDATE_ROUTE"
+    | "UPDATE_MODE"
+    | "DELETE_ROUTE";
   payload: any;
 }
 
@@ -26,6 +31,8 @@ interface Routing {
 
 interface InitialStateType {
   routing: Routing[];
+  index: number;
+  mode: "ADD" | "UPDATE";
 }
 
 export const GlobalContext = createContext<ContextType>({
@@ -34,48 +41,45 @@ export const GlobalContext = createContext<ContextType>({
 });
 
 const initialState: InitialStateType = {
-  routing: [
-    {
-      id: 0,
-      protected: "false",
-      dynamic: "",
-      component: "",
-      path: "",
-      isDynamic: false,
-      isExact: false,
-    },
-  ],
+  routing: [],
+  index: 0,
+  mode: "ADD",
 };
 
 const reducers = (state: InitialStateType, action: ActionType) => {
   const { type, payload } = action;
   switch (type) {
     case "ADD_ROUTE": {
-      const ifRowDontExist = !state?.routing?.find(
-        (item) => item?.id === payload?.index
-      );
-      if (ifRowDontExist) {
-        state.routing.push({
-          id: payload?.index,
-          protected: "false",
-          dynamic: "",
-          component: "",
-          path: "",
-          isDynamic: false,
-          isExact: false,
-        });
-      }
-      return { ...state };
-    }
-    case "REMOVE_ROUTE": {
-      state?.routing?.slice(payload, 1);
+      state.routing[payload?.id] = {
+        id: payload?.id,
+        protected: payload?.protected,
+        dynamic: payload?.dynamic ?? "",
+        component: payload?.component,
+        path: payload?.path,
+        isDynamic: payload?.isDynamic ?? false,
+        isExact: payload?.isExact ?? false,
+      };
+      state.index = payload?.id + 1;
       return { ...state };
     }
     case "UPDATE_ROUTE": {
-      state.routing[payload.index] = {
-        ...state.routing[payload.index],
-        ...payload?.data,
+      state.routing[payload.id] = {
+        ...state.routing[payload.id],
+        ...payload,
       };
+      state.mode = "ADD";
+      state.index = state.routing.length;
+      return { ...state };
+    }
+    case "UPDATE_MODE": {
+      state.mode = "UPDATE";
+      state.index = payload?.id;
+      return { ...state };
+    }
+    case "DELETE_ROUTE": {
+      state.routing =
+        state?.routing?.filter((item) => item?.id !== payload?.id) ?? [];
+      state.index = state.routing.length;
       return { ...state };
     }
     default:

@@ -1,6 +1,4 @@
 .routing {
-  height: 85%;
-
   display: flex;
   flex-direction: column;
 }
@@ -9,7 +7,12 @@
   display: flex;
 }
 
-.routing-lists {}
+.routing-lists {
+  margin-top: 1rem;
+  position: relative;
+  overflow: auto;
+  height: 60vh;
+}
 
 .routing-form {
   display: flex;
@@ -36,8 +39,15 @@
   cursor: pointer;
 }
 
+.routing-generate-btn:disabled {
+  cursor: not-allowed;
+}
+
 .routing-table {
   margin: 2rem auto;
+  margin-top: 0;
+  overflow-y: scroll;
+  height: 100px;
 }
 
 .routing-table td {
@@ -45,14 +55,48 @@
 }
 
 .routing-head {
+  width: 100%;
   background-color: #8AC4E4;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .routing-head th {
   font-weight: 700 !important;
+
 }
 
-.routing-head-row {}
+.routing-form-add {
+  background-color: #209CE2;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.routing-head-row {
+  position: sticky;
+}
+
+.action-btn {
+  padding: 0.3rem 0.8rem;
+  margin-right: 0.8rem;
+
+  border: none;
+  border-radius: 0.2rem;
+
+  cursor: pointer;
+}
+
+.action-btn.action-edit {
+  background-color: #BDE09A;
+}
+
+.action-btn.action-delete {
+  background-color: crimson;
+}
 
 .routing-body {}
 
