@@ -1,5 +1,4 @@
-import { FormControl, FormHelperText, FormLabel } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
+import { FormControl, FormHelperText } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { Control, RegisterOptions } from "react-hook-form/dist/types";

@@ -36,14 +36,7 @@ const RoutingForm: React.FC<PropType> = () => {
     state: { routing, index, mode },
     dispatch,
   } = useContext(GlobalContext);
-  const {
-    control,
-    watch,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { control, watch, handleSubmit, setValue, reset } = useForm({
     mode: "onChange",
     defaultValues,
   });
