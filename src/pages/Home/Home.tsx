@@ -12,7 +12,7 @@ import "../../styles/Routing.css";
 function generateFiles(data: any[]) {
   const date = new Date();
   const time = `-${date.toDateString()}-${date.toLocaleTimeString()}`;
-  const file = createRoutings(data.slice(0, -1)).join("");
+  const file = createRoutings(data).join("");
   download(`Routing ${time}.jsx`, file);
 }
 

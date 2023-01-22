@@ -36,7 +36,14 @@ const RoutingForm: React.FC<PropType> = () => {
     state: { routing, index, mode },
     dispatch,
   } = useContext(GlobalContext);
-  const { control, watch, handleSubmit, setValue, reset } = useForm({
+  const {
+    control,
+    watch,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
     defaultValues,
   });
@@ -62,7 +69,7 @@ const RoutingForm: React.FC<PropType> = () => {
     if (mode === "UPDATE") reset(routing[index]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, index]);
-
+  console.log(errors);
   return (
     <form className="routing-form" onSubmit={handleSubmit(onSubmit)}>
       <CustomSelect
@@ -84,7 +91,15 @@ const RoutingForm: React.FC<PropType> = () => {
         name="path"
         type="text"
         control={control}
-        rules={basicRule}
+        rules={{
+          ...basicRule,
+          validate: {
+            slashStart: (value) =>
+              /^\//.test(value)
+                ? true
+                : "Path should start with a forward slash.",
+          },
+        }}
         placeholder="Path name ex. /login"
         label="Path"
         variant="outlined"
@@ -93,7 +108,15 @@ const RoutingForm: React.FC<PropType> = () => {
         name="component"
         type="text"
         control={control}
-        rules={basicRule}
+        rules={{
+          ...basicRule,
+          validate: {
+            capsStart: (value) =>
+              /^[A-Z]/.test(value)
+                ? true
+                : "Component should start with captial letters.",
+          },
+        }}
         placeholder="Component Name ex. App"
         label="Component"
         variant="outlined"
@@ -102,7 +125,17 @@ const RoutingForm: React.FC<PropType> = () => {
         name="dynamic"
         type="text"
         control={control}
-        rules={isDynamicPath ? basicRule : { required: false }}
+        rules={{
+          ...(!isDynamicPath && { required: false }),
+          ...(isDynamicPath && {
+            ...basicRule,
+            pattern: {
+              value: /^\/:/,
+              message:
+                "Dynamic path should start with forward slash and colon.",
+            },
+          }),
+        }}
         disabled={!isDynamicPath}
         placeholder="Dynamic Path ex. /:id"
         label="Dynamic"
