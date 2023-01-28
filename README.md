@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# React Router DOM Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+This project is for generating JSX files that include code for React Router DOM. Users can select a route type (either open or protected), type in a path name that starts with "/" (e.g. "/login"), and type in the React component name for that route (e.g. "Login"). Additionally, the project includes a checkbox for dynamic routes, where if checked, the input field for dynamic input is enabled and the user can type in a path like "/:userId". There is also a checkbox for exact routes, where if checked, the exact property is set to true for that route.
 
-## Available Scripts
+## Features
+- Select route type (open or protected)
+- Type in path name
+- Type in React component name
+- Checkbox for dynamic routes
+- Input field for dynamic key for dynamic routes
+- Checkbox for exact routes
+- Add button to add route data to table
+- Generate Code button to download a Route.jsx file with all the code according to the data in the table
+- Table to display added routes data
 
-In the project directory, you can run:
+## Technologies Used
+- React
+- React Router DOM
 
-### `npm start`
+## How to use
+1. Select the route type (open or protected)
+2. Type in the path name that starts with "/" (e.g. "/login")
+3. Type in the React component name for that route (e.g. "Login")
+4. Check the checkbox for dynamic routes if it's a dynamic route
+5. If dynamic routes checkbox is checked then input field for dynamic key will be enabled, type in dynamic key
+6. Check the checkbox for exact routes if it's an exact route
+7. Click on the "Add" button to add the route data to the table
+8. Repeat steps 1-7 for adding more routes
+9. Click on the "Generate Code" button to download the Route.jsx file with all the code according to the data in the table
+10. Table will display all the added routes data
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Note
+- Make sure to start path name with "/"
+- Dynamic key should start with "/:"
+- If the route is dynamic make sure to check the dynamic routes checkbox otherwise it will not work properly
+- If the route is exact make sure to check the exact routes checkbox otherwise it will not work properly
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Conclusion
+With this project, it will be easy to generate the JSX code for React Router DOM routes, making it convenient for developers to set up routing in their React projects. The project uses React and React Router DOM, with a simple and minimal UI, to provide a user-friendly interface for adding and generating routes.
