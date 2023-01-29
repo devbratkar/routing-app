@@ -29,7 +29,7 @@ export const createRoutings = (data: any) => {
     const isDynamic = route?.isDynamic;
     const newRoute = `\t\t\t<Route path="${route?.path}${
       isDynamic ? String(route?.dynamic) : ""
-    }" exact={${String(route?.isExact)}} element={<${route?.component} />}/>\n`;
+    }" element={<${route?.component} />}/>\n`;
     finalRoute.push(newRoute);
   });
   if (protectedRoutingData?.length) {
@@ -39,9 +39,7 @@ export const createRoutings = (data: any) => {
       const isDynamic = route?.dynamic;
       const newRoute = `\t\t\t\t<Route path="${route?.path}${
         isDynamic ? String(route?.dynamic) : ""
-      }" exact={${String(route?.isExact)}} element={<${
-        route?.component
-      } />}/>\n`;
+      }" element={<${route?.component} />}/>\n`;
       finalRoute.push(newRoute);
     });
     finalRoute.push(`\t\t\t</ProtectedRoute>\n`);
