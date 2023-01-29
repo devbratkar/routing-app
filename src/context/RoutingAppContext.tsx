@@ -26,7 +26,6 @@ interface Routing {
   component: string;
   path: string;
   isDynamic: boolean;
-  isExact: boolean;
 }
 
 interface InitialStateType {
@@ -35,7 +34,7 @@ interface InitialStateType {
   mode: "ADD" | "UPDATE";
 }
 
-export const GlobalContext = createContext<ContextType>({
+export const RoutingContext = createContext<ContextType>({
   state: {},
   dispatch: () => null,
 });
@@ -57,7 +56,6 @@ const reducers = (state: InitialStateType, action: ActionType) => {
         component: payload?.component,
         path: payload?.path,
         isDynamic: payload?.isDynamic ?? false,
-        isExact: payload?.isExact ?? false,
       };
       state.index = payload?.id + 1;
       return { ...state };
@@ -87,11 +85,11 @@ const reducers = (state: InitialStateType, action: ActionType) => {
   }
 };
 
-export const ContextProvider: React.FC<PropType> = ({ children }) => {
+export const RoutingAppContextProvider: React.FC<PropType> = ({ children }) => {
   const [state, dispatch] = useReducer(reducers, initialState);
   return (
-    <GlobalContext.Provider value={{ state, dispatch }}>
+    <RoutingContext.Provider value={{ state, dispatch }}>
       {children}
-    </GlobalContext.Provider>
+    </RoutingContext.Provider>
   );
 };

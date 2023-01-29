@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import CustomCheckbox from "../CustomInputs/CustomCheckbox";
 import CustomInput from "../CustomInputs/CustomInput";
 import CustomSelect from "../CustomInputs/CustomSelect";
-import { GlobalContext } from "../../Context";
+import { RoutingContext } from "../../context/RoutingAppContext";
 
 type DefaultFormType = {
   protected: string;
@@ -35,7 +35,7 @@ const RoutingForm: React.FC<PropType> = () => {
   const {
     state: { routing, index, mode },
     dispatch,
-  } = useContext(GlobalContext);
+  } = useContext(RoutingContext);
   const { control, watch, handleSubmit, setValue, reset } = useForm({
     mode: "onChange",
     defaultValues,
@@ -141,7 +141,6 @@ const RoutingForm: React.FC<PropType> = () => {
           setValue("dynamic", "");
         }}
       />
-      <CustomCheckbox name="isExact" control={control} label="Exact" />
 
       <button className="routing-form-add" type="submit">
         Add

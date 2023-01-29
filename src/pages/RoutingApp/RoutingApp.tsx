@@ -4,8 +4,9 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import TableHead from "@mui/material/TableHead/TableHead";
 import TableRow from "@mui/material/TableRow/TableRow";
 import React, { useContext } from "react";
+
 import RoutingForm from "../../component/RoutingForm/RoutingForm";
-import { GlobalContext } from "../../Context";
+import { RoutingContext } from "../../context/RoutingAppContext";
 import { createRoutings, download } from "../../Services/routingServices";
 import "../../styles/Routing.css";
 
@@ -20,8 +21,10 @@ const Home = () => {
   const {
     state: { routing },
     dispatch,
-  } = useContext(GlobalContext);
+  } = useContext(RoutingContext);
+
   const isGenerateCodeDisabled = !routing?.length;
+
   return (
     <div className="routing">
       <div className="routing-input">
@@ -37,7 +40,6 @@ const Home = () => {
               <TableCell width={200}>Component</TableCell>
               <TableCell width={200}>Dynamic</TableCell>
               <TableCell width={150}>Is Dynamic?</TableCell>
-              <TableCell width={150}>Is Exact?</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -55,7 +57,6 @@ const Home = () => {
                   <TableCell>{`<${item?.component} />`}</TableCell>
                   <TableCell>{item?.dynamic || "-"}</TableCell>
                   <TableCell>{`${String(item?.isDynamic)}`}</TableCell>
-                  <TableCell>{`${String(item?.isExact)}`}</TableCell>
                   <TableCell>
                     <button
                       className="action-btn action-edit"
