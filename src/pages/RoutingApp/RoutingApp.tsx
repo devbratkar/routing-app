@@ -3,27 +3,12 @@ import TableBody from "@mui/material/TableBody/TableBody";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableHead from "@mui/material/TableHead/TableHead";
 import TableRow from "@mui/material/TableRow/TableRow";
-import React, { createContext, useContext, useReducer } from "react";
-import { useNavigate } from "react-router";
+import React, { useContext } from "react";
 
 import RoutingForm from "../../component/RoutingForm/RoutingForm";
 import { RoutingContext } from "../../context/RoutingAppContext";
 import { createRoutings, download } from "../../Services/routingServices";
 import "../../styles/Routing.css";
-
-interface AuthGuardProps {
-  children: JSX.Element;
-}
-
-interface InitialStateProps {
-  state: any;
-  dispatch: () => null;
-}
-
-interface Actions {
-  type: string;
-  payload: any;
-}
 
 function generateFiles(data: any[]) {
   const date = new Date();
@@ -31,43 +16,6 @@ function generateFiles(data: any[]) {
   const file = createRoutings(data).join("");
   download(`Routing ${time}.jsx`, file);
 }
-
-const AuthContext = createContext({});
-
-const authReducer = (state: InitialStateProps, action: Actions) => {
-  const { type, payload } = action;
-  switch (type) {
-    case "login": {
-      state.state.login = true;
-      return { ...state };
-    }
-    case "logout": {
-      state.state.login = false;
-      return { ...state };
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-const initialState: InitialStateProps = {
-  state: {},
-  dispatch: () => null,
-};
-
-const AuthGuard = ({ children }: AuthGuardProps) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
-  const navigate = useNavigate();
-
-  if (!state?.state?.login) return navigate("/");
-
-  return (
-    <AuthContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
 
 const Home = () => {
   const {
